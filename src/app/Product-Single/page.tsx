@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { products } from '../data/products';
 import ProductCard from '../Components/ProductCard';
+import { useCart } from '../context/CartContext';
 
 const ProductSingle = () => {
   const searchParams = useSearchParams();
@@ -14,6 +15,7 @@ const ProductSingle = () => {
   const [selectedColor, setSelectedColor] = useState('#816DFA');
   const [showAll, setShowAll] = useState(false);
   const [randomProducts, setRandomProducts] = useState<typeof products>([]);
+  const { addToCart } = useCart();
 
   // Get product data from URL parameters
   const productId = searchParams.get('id');
@@ -81,6 +83,17 @@ const ProductSingle = () => {
 
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
+  };
+
+  const handleAddToCart = () => {
+    const productToAdd = {
+      id: Number(productId),
+      name: productName || '',
+      price: Number(productPrice),
+      image: productImage || ''
+    };
+    
+    addToCart(productToAdd, quantity);
   };
 
   return (
@@ -174,7 +187,7 @@ const ProductSingle = () => {
                   </div>
                 </div>
                 
-                <div className="Single-prod-cta__purchase grid grid-cols-[auto_1fr] gap-[20px] pb-[35px] xxs:grid-cols-1">
+                <div className="Single-prod-cta__purchase flex flex-col gap-[20px] pb-[35px] xxs:flex-row">
                   <div className="flex gap-8 items-center">
                     <div className="flex border border-[#9F9F9F] rounded">
                       <button 
@@ -199,6 +212,12 @@ const ProductSingle = () => {
                       </button>
                     </div>
                   </div>
+                  <button 
+                    onClick={handleAddToCart}
+                    className="px-7 py-[10px] border border-black rounded-xl hover:bg-black hover:text-white transition-all duration-300"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
                 
                 <hr className="Single-prod-cta__divider border-t border-[#E8E8E8] pb-[15px]" />

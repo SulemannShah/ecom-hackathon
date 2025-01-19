@@ -1,8 +1,9 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useCart } from '../context/CartContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CartPopupProps {
   isOpen: boolean;
@@ -11,6 +12,13 @@ interface CartPopupProps {
 
 const CartPopup = ({ isOpen, onClose }: CartPopupProps) => {
   const { cartItems, removeFromCart, getCartTotal } = useCart();
+
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(onClose, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 

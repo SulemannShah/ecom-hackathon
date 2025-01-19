@@ -9,18 +9,25 @@ interface CartWindowProps {
 }
 
 const CartWindow = ({ isOpen, onClose }: CartWindowProps) => {
-  if (!isOpen) return null;
-
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop with fade transition */}
       <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-40"
+        className={`
+          fixed inset-0 bg-black transition-opacity duration-300 z-40
+          ${isOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+        `}
         onClick={onClose}
       />
       
-      {/* Cart Window */}
-      <div className="fixed top-0 right-0 h-full w-[400px] bg-white shadow-lg z-50 p-6">
+      {/* Cart Window with slide transition */}
+      <div 
+        className={`
+          fixed top-0 right-0 h-full w-[400px] bg-white shadow-lg z-50 p-6
+          transform transition-transform duration-300 ease-in-out
+          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+        `}
+      >
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-[24px]">Shopping Cart</h2>
           <button onClick={onClose}>

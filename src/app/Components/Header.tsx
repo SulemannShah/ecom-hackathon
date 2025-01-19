@@ -4,10 +4,14 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import CartWindow from "./CartWindow";
+import CartNotification from './CartNotification';
+import CartPopup from './CartPopup';
+import { useCart } from "../context/CartContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const { resetCartCount, showPopup, setShowPopup } = useCart();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,6 +19,9 @@ const Header = () => {
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
+    if (!isCartOpen) {
+      resetCartCount(); // Reset cart count when opening cart
+    }
   };
 
   return (
@@ -97,7 +104,12 @@ const Header = () => {
                       height={28}
                     />
                   </div>
-                  <div className="header__cartIcon-wrapper w-[28px] h-[28px] cursor-pointer" onClick={toggleCart}>
+                  <div className="header__cartIcon-wrapper w-[28px] h-[28px] relative cursor-pointer" onClick={toggleCart}>
+                    <CartNotification />
+                    <CartPopup 
+                      isVisible={showPopup} 
+                      onHide={() => setShowPopup(false)} 
+                    />
                     <Image 
                       className="header__cartIcon w-full h-full" 
                       src="/image9.png" 
@@ -146,7 +158,12 @@ const Header = () => {
                     height={28}
                   />
                 </div>
-                <div className="header__cartIcon-wrapper w-[28px] h-[28px] cursor-pointer" onClick={toggleCart}>
+                <div className="header__cartIcon-wrapper w-[28px] h-[28px] relative cursor-pointer" onClick={toggleCart}>
+                  <CartNotification />
+                  <CartPopup 
+                    isVisible={showPopup} 
+                    onHide={() => setShowPopup(false)} 
+                  />
                   <Image 
                     className="header__cartIcon w-full h-full" 
                     src="/image9.png" 

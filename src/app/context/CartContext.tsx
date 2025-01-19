@@ -12,12 +12,18 @@ interface CartContextType {
   addToCart: (product: Product, quantity: number) => void;
   removeFromCart: (productId: number) => void;
   getCartTotal: () => number;
+  cartCount: number;
+  resetCartCount: () => void;
+  showPopup: boolean;
+  setShowPopup: (show: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartCount, setCartCount] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
   const addToCart = (product: Product, quantity: number) => {
     setCartItems(prev => {
@@ -31,21 +37,34 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...product, quantity }];
     });
+    setCartCount(prev => prev + 1);
+    setShowPopup(true);
   };
 
   const removeFromCart = (productId: number) => {
     setCartItems(prev => prev.filter(item => item.id !== productId));
+    setCartCount(prev => Math.max(0, prev - 1));
+  };
+
+  const resetCartCount = () => {
+    setCartCount(0);
   };
 
   const getCartTotal = () => {
-    return cartItems.reduce((total, item) => {
-      const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
-      return total + price * item.quantity;
-    }, 0);
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, getCartTotal }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      removeFromCart, 
+      getCartTotal,
+      cartCount,
+      resetCartCount,
+      showPopup,
+      setShowPopup
+    }}>
       {children}
     </CartContext.Provider>
   );
