@@ -1,9 +1,12 @@
 "use client"
 
 import React from "react";
+import ProductCard from '../Components/ProductCard';
+import { products } from '../data/products';
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 const Shop = () => {
-  
   return (
     <>
     <section className="cta-sec">
@@ -17,7 +20,7 @@ const Shop = () => {
            </div>
            <h2 className="cta-sec__heading">Shop</h2>
            <p>Home  shop</p>
-           </div>
+        </div>
       </div>
     </section>
 
@@ -55,11 +58,15 @@ const Shop = () => {
       </div>
     </section>
 
-    <section className="all-products-sec">
+    <section className="all-products-sec pt-12">
       <div className="all-products-sec__inner">
-        <div className="all-products-sec__prod-grid">
-          {/* Your original product grid items */}
-          {/* Copy and paste your original product items here */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+          {products.map((product) => (
+            <ProductCard 
+              key={product.id} 
+              product={product}
+            />
+          ))}
         </div>
 
         <div className="pagination">
@@ -90,6 +97,7 @@ const Shop = () => {
       </div>
     </section>
     </>
-  )}
+  )
+}
 
 export default Shop
