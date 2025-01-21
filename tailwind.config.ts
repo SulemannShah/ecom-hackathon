@@ -18,6 +18,7 @@ export default {
       "sm": "767px",
       "xs2": "650px",
       "xs": "470px",
+      "xxs2": "420px",
       "xxs": "320px",
       
     } ,

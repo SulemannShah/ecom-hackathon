@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { products } from '../../../data/products';
@@ -9,36 +9,50 @@ import { useCart } from '../../../context/CartContext';
 
 const ProductSingle = () => {
   const params = useParams();
-  const { addToCart } = useCart();
+  const { addToCart, getProductQuantity } = useCart();
   const [quantity, setQuantity] = useState(1);
+  
+  const product = products.find(p => p.id === Number(params.id));
+
+  // Update quantity when product changes
+  useEffect(() => {
+    if (product) {
+      const cartQuantity = getProductQuantity(product.id);
+      if (cartQuantity > 0) {
+        setQuantity(cartQuantity);
+      }
+    }
+  }, [product?.id]);
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      setQuantity(prev => prev - 1);
     }
   };
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    if (quantity < 10) {
+      setQuantity(prev => prev + 1);
+    }
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
-    if (!isNaN(value) && value > 0) {
+    if (!isNaN(value) && value >= 1 && value <= 10) {
       setQuantity(value);
     }
   };
 
-  const product = products.find(p => p.id === Number(params.id));
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, quantity);
+    }
+  };
 
   if (!product) {
     return <div>Product not found</div>;
   }
   
-  const handleAddToCart = () => {
-    addToCart(product, quantity);
-  };
-
   return (
     <>
     <section className="Single-prod-sec lg:w-full  pt-6 pb-[50px] bg-white px-[30px]">
@@ -112,10 +126,11 @@ const ProductSingle = () => {
                 </div>
                 
                 <div className="flex items-center gap-4">
-                  <div className="flex items-center border border-[#9F9F9F] rounded">
+                  <div className="flex border border-[#9F9F9F] rounded">
                     <button 
-                      className="px-4 py-2 text-xl"
+                      className={`px-4 py-2 text-xl transition-opacity ${quantity <= 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
                       onClick={decreaseQuantity}
+                      disabled={quantity <= 1}
                     >
                       -
                     </button>
@@ -126,8 +141,9 @@ const ProductSingle = () => {
                       className="w-12 text-center border-x border-[#9F9F9F]" 
                     />
                     <button 
-                      className="px-4 py-2 text-xl"
+                      className={`px-4 py-2 text-xl transition-opacity ${quantity >= 10 ? 'opacity-50 cursor-not-allowed' : ''}`}
                       onClick={increaseQuantity}
+                      disabled={quantity >= 10}
                     >
                       +
                     </button>

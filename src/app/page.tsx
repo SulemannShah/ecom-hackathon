@@ -2,6 +2,7 @@
 
 import React from "react";
 import Header from "./Components/Header";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -71,64 +72,64 @@ const Home = () => {
         </div>
 
         <div className="top-products-sec__products-grid grid grid-cols-4 gap-x-[75px] xxs:grid-cols-1 xs2:grid-cols-2 gap-[30px] md:grid-cols-3 md2:grid-cols-4">
-        <div className="product-cta flex flex-col gap-y-[40px] justify-between">
+          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
             <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]  ">
-              <img className="product-cta__image w-[210px] h-[180px]" src="image4.png" alt="" />
-            </div>
-            <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
-              <p className="product-cta__discription text-[16px]">Granite dining table with dining chair</p>
-              <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
-            </div>
-          </div>
-          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
-            <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]">
-              <img className="product-cta__image w-[210px] h-[180px]" src="image4.png" alt="" />
-            </div>
-            <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
-              <p className="product-cta__discription text-[16px]">Granite dining table with dining chair</p>
-              <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
-            </div>
-          </div>
-          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
-            <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]">
-              <img className="product-cta__image w-[210px] h-[180px]" src="image4.png" alt="" />
-            </div>
-            <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
-              <p className="product-cta__discription text-[16px]">Granite dining table with dining chair</p>
-              <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
-            </div>
-          </div>
-          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
-            <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]">
               <img className="product-cta__image w-[210px] h-[180px]" src="image6.png" alt="" />
+            </div>
+            <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
+              <p className="product-cta__discription text-[16px]">Granite dining table with dining chair</p>
+              <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
+            </div>
+          </div>
+          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
+            <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]">
+              <img className="product-cta__image w-[210px] h-[180px]" src="image4.png" alt="" />
+            </div>
+            <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
+              <p className="product-cta__discription text-[16px]">Granite dining table with dining chair</p>
+              <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
+            </div>
+          </div>
+          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
+            <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]">
+              <img className="product-cta__image w-[210px] h-[180px]" src="image5.png" alt="" />
+            </div>
+            <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
+              <p className="product-cta__discription text-[16px]">Granite dining table with dining chair</p>
+              <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
+            </div>
+          </div>
+          <div className="product-cta flex flex-col gap-y-[40px] justify-between">
+            <div className="product-cta__image-wrapper w-full h-[180px] flex justify-end pr-[40px]">
+              <img className="product-cta__image w-[210px] h-[180px]" src="image7.png" alt="" />
             </div>
             <div className="product-cta__discription-wrapper flex flex-col gap-y-[5px] h-full justify-between w-4/5">
               <p className="product-cta__discription text-[16px]">Outdoor bar table and stool</p>
               <h4 className="product-cta__price text-[24px]">Rs. 25,000.00</h4>
             </div>
-          </div> 
+          </div>
         </div>
 
-        <button className="btn-black">View More</button>
+        <Link href="/Shop" className="btn-black">View More</Link>
       </div>
     </section>
 
 
-    <section className="new-arrival-sec bg-[#FFF9E5] w-full h-[580px] relative px-[30px] hidden">
-      <div className="new-arrival-sec__inner grid grid-cols-[4fr_2fr] max-w-[1240px] w-full mx-auto gap-x-[100px] h-full lg:gap-[30px]">
-        <div className="new-arrival-sec__image-wrapper w-full h-[580px] relative">
+    <section className="new-arrival-sec bg-[#FFF9E5] w-full xxs:py-9 md:py-4">
+      <div className="new-arrival-sec__inner grid grid-cols-[4fr_2fr] max-w-[2000px] w-full mx-auto  h-full lg:gap-[30px] xxs:grid-cols-1 gap-6 md:grid-cols-3 md:gap-0 ">
+        <div className="new-arrival-sec__image-wrapper w-full xxs: h-[300px] xxs2:h-[350px] xs2:h-[400px] md:h-[450px] md:col-span-2 ">
           <img 
-            className="new-arrival-sec__image min-w-[260px] h-full absolute right-1/2 translate-x-[40%] lg:min-with lg:translate-x-[50%]" 
+            className="new-arrival-sec__image ] w[100%] h-full  " 
             src="image12.png" 
             alt="" 
           />
         </div>
-        <div className="new-arrival-sec__content-wrapper w-full flex flex-col justify-center items-end">
+        <div className="new-arrival-sec__content-wrapper w-full flex flex-col justify-center xxs:items-start px-4 md:col-span-1 md:px-0">
           <div className="new-arrival-sec__content-wrapper">
             <h4 className="new-arrival-sec__accent-heading text-[20px] w-[10ch]">
               New Arrivals
             </h4>
-            <h2 className="new-arrival-sec__heading text-[48px] w-[11ch] h-auto">
+            <h2 className="new-arrival-sec__heading xxs:text-[30px] w-[11ch] h-auto xxs2:text-[48px]">
               Asgaard sofa
             </h2>
             <button className="btn-outline-blog">Order Now</button>
@@ -150,7 +151,7 @@ const Home = () => {
         <div className="blog-card__image-wrapper w-full h-[270px] mb-6 overflow-hidden xs:h-[300px] md2:h-[390px] ">
           <img 
             className="blog-card__image w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105" 
-            src="image15.png" 
+            src="image13.png" 
             alt="" 
           />
         </div>
@@ -182,7 +183,7 @@ const Home = () => {
         <div className="blog-card__image-wrapper w-full h-[270px] mb-6 overflow-hidden xs:h-[300px] md2:h-[390px] ">
           <img 
             className="blog-card__image w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105" 
-            src="image15.png" 
+            src="image14.png" 
             alt="" 
           />
         </div>

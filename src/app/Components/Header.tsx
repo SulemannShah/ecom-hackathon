@@ -3,15 +3,18 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from 'next/navigation';
 import CartWindow from "./CartWindow";
 import CartNotification from './CartNotification';
-import CartPopup from './CartPopup';
 import { useCart } from "../context/CartContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { resetCartCount, showPopup, setShowPopup } = useCart();
+  const { cartCount } = useCart();
+  const pathname = usePathname();
+  
+  const isHomePage = pathname === '/';
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,14 +22,11 @@ const Header = () => {
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
-    if (!isCartOpen) {
-      resetCartCount(); // Reset cart count when opening cart
-    }
   };
 
   return (
     <>
-      <header className="w-full bg-[#FBEBB5] relative">
+      <header className={`w-full ${isHomePage ? 'bg-[#FBEBB5]' : 'bg-white'}`}>
         <div className="header w-full mx-auto px-[30px]">
           <div className="header__inner flex flex-row justify-between py-[40px] gap-x-[154px] w-full max-w-[1280px] mx-auto xxs:gap-x-[0px]">
             <div className="header__logo-wrapper min-w-[120px] max-w-[185px] xxs:w-[120px]">
@@ -105,11 +105,6 @@ const Header = () => {
                     />
                   </div>
                   <div className="header__cartIcon-wrapper w-[28px] h-[28px] relative cursor-pointer" onClick={toggleCart}>
-                    <CartNotification />
-                    <CartPopup 
-                      isVisible={showPopup} 
-                      onHide={() => setShowPopup(false)} 
-                    />
                     <Image 
                       className="header__cartIcon w-full h-full" 
                       src="/image9.png" 
@@ -159,11 +154,6 @@ const Header = () => {
                   />
                 </div>
                 <div className="header__cartIcon-wrapper w-[28px] h-[28px] relative cursor-pointer" onClick={toggleCart}>
-                  <CartNotification />
-                  <CartPopup 
-                    isVisible={showPopup} 
-                    onHide={() => setShowPopup(false)} 
-                  />
                   <Image 
                     className="header__cartIcon w-full h-full" 
                     src="/image9.png" 
