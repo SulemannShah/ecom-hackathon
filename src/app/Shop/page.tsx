@@ -1,12 +1,31 @@
 "use client"
 
-import React from "react";
+import React, { useState } from "react";
 import ProductCard from '../Components/ProductCard';
 import { products } from '../data/products';
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
+import Pagination from '../Components/Pagination';
 
 const Shop = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 5;
+  
+  // Calculate total pages and ranges
+  const totalPages = Math.ceil(products.length / productsPerPage);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Calculate the display ranges for "Showing X-Y of Z results"
+  const startRange = indexOfFirstProduct + 1;
+  const endRange = Math.min(indexOfLastProduct, products.length);
+  const totalProducts = products.length;
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
     <section className="cta-sec">
@@ -38,7 +57,9 @@ const Shop = () => {
             <span className="list-icon">≡</span>
           </button>
           <span className="separator">|</span>
-          <span className="results-text">Showing 1-16 of 32 results</span>
+          <span className="results-text">
+            Showing {startRange}-{endRange} of {totalProducts} results
+          </span>
         </div>
         <div className="all-products-sec__right">
           <div className="show-wrapper">
@@ -61,7 +82,7 @@ const Shop = () => {
     <section className="all-products-sec pt-12">
       <div className="all-products-sec__inner">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-          {products.map((product) => (
+          {currentProducts.map((product) => (
             <ProductCard 
               key={product.id} 
               product={product}
@@ -69,12 +90,11 @@ const Shop = () => {
           ))}
         </div>
 
-        <div className="pagination">
-          <button className="pagination__btn pagination__btn--active">1</button>
-          <button className="pagination__btn">2</button>
-          <button className="pagination__btn">3</button>
-          <button className="pagination__btn pagination__btn--next">Next</button>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </section>
 
